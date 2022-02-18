@@ -13,7 +13,7 @@ jobs:
               #install serverless
             - name: Install Serverless Framework
               run: npm install -g serverless
-            - name: Install Serverless Framework
+            - name: Install Serverless prune plugin
               run: sls plugin install -n serverless-prune-plugin
               # authentication
             - name: Serverless AWS authentication
@@ -22,6 +22,6 @@ jobs:
               run: npm install
               #serverless deploy
             - name: removing old version
-              run: sls prune --region us-east-2  --config serverless.yml
+              run: sls prune -n 1 --region us-east-2  --config serverless.yml
             - name: Deploy
               run: sls deploy --region us-east-2 --config serverless.yml
