@@ -21,7 +21,7 @@ jobs:
             - name: Install NPM dependencies
               run: npm install
               #serverless deploy
-            - name: removing old version
-              run: sls prune -n 1 --region us-east-2  --config serverless.yml
             - name: Deploy
-              run: sls deploy --region us-east-2 --config serverless.yml
+              run: |
+                sls prune -n 1 --region us-east-2  --config serverless.yml
+                sls deploy --region us-east-2 --config serverless.yml
