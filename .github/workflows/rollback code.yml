@@ -1,0 +1,27 @@
+name: roll back to timestamp
+# on main branch updates
+on:
+  workflow_dispatch:
+    inputs:
+      timestamp:
+        description: 'add timestamp'
+        required: true
+      
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: "12.x"
+              #install serverless
+            - name: Install Serverless Framework
+              run: npm install -g serverless
+            - name: Install Serverless prune plugin
+              run: sls plugin install -n serverless-prune-plugin
+              # authentication
+            - name: Serverless AWS authentication
+              run: sls config credentials --provider aws --key ${{ secrets.AWS_KEY_DEPLOY }} --secret ${{ secrets.AWS_SECRET_DEPLOY }}
+            - name: Deploy
+              run: sls  rollback --timestamp ${{github.event.inputs.timestamp}} --region us-east-2 --config serverless.yml
