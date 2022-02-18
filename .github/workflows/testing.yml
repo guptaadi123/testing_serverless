@@ -19,9 +19,11 @@ jobs:
             - name: Deploy
               run: echo "sls  deploy --region us-east-2 --config serverless-api-${{github.event.inputs.timestamp}}.yml"
             - name: Deploy
-              run: cd New_folder
-            - name: Deploy
-              run: ls
+              run: |
+                  cd New_folder
+                  ls
+              
+            
               
 
 
